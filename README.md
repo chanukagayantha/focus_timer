@@ -57,7 +57,7 @@ A productivity timer application implementing popular time management techniques
 ### Build Steps
   ```bash
   # Clone repository
-  git clone https://github.com/yourusername/productivity-timer.git
+  git clone https://github.com/chanukagayantha/focus_timer.git
   cd productivity-timer
   
   # Create virtual environment
