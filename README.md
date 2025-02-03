@@ -18,7 +18,7 @@ A productivity timer application implementing popular time management techniques
 
 ### For End Users
 1. Download latest release:  
-   [ProductivityTimer_v1.0.dmg](https://github.com/yourusername/productivity-timer/releases/latest)
+   [FocusTimer_v1.0](https://github.com/chanukagayantha/focus_timer/releases/tag/v1.0)
    
 2. Open DMG and install:
    ```bash
@@ -68,13 +68,13 @@ A productivity timer application implementing popular time management techniques
   pip install -r requirements.txt
   
   # Build application
-  pyinstaller --windowed --name ProductivityTimer \
+  pyinstaller --windowed --name FocusTimer \
   --icon assets/icons/app_icon.icns \
-  --osx-bundle-identifier "com.yourcompany.productivitytimer" \
+  --osx-bundle-identifier "com.yourcompany.focustimer" \
   src/main.py
   
   # Create installer DMG
-  create-dmg ProductivityTimer.dmg dist/
+  create-dmg FocusTimer.dmg dist/
   ```
 ## Tech Stack 🔧
 - Core Language: Python 3
