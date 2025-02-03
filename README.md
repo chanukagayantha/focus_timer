@@ -4,7 +4,7 @@
 [![PyQt6](https://img.shields.io/badge/PyQt6-6.4%2B-41cd52?logo=qt&logoColor=white)](https://www.riverbankcomputing.com/software/pyqt/)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-A professional productivity timer application implementing popular time management techniques with a clean macOS-native interface.
+A productivity timer application implementing popular time management techniques with a clean macOS-native interface.
 
 ![App Screenshot](screenshot.png)
 
@@ -82,5 +82,8 @@ A professional productivity timer application implementing popular time manageme
 - Packaging: PyInstaller
 - Installer: create-dmg
 - CI/CD: GitHub Actions (recommended)
+
+## License 📄
+
   
 
