@@ -1,0 +1,60 @@
+name: Build Windows EXE & Create Installer
+
+on:
+  push:
+    branches: ["dev"]
+  pull_request:
+    branches: ["dev"]
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+
+      - name: Install Python dependencies
+        run: |
+          pip install --upgrade pip
+          pip install pyinstaller PyQt6
+
+      - name: Build the EXE with PyInstaller
+        run: |
+          pyinstaller ^
+            --name "FocusTimer" ^
+            --windowed ^
+            --onefile ^
+            --hidden-import PyQt6 ^
+            --hidden-import PyQt6.QtWidgets ^
+            --hidden-import PyQt6.QtGui ^
+            --add-data "assets;assets" ^
+            src\main.py
+        # Note: For Windows, use semicolons in --add-data. Adjust paths if needed.
+
+      - name: Download/Install Inno Setup
+        run: |
+          # Inno Setup isn't typically installed on the default runner,
+          # so we can download/install silently:
+          $innoUrl = "https://files.jrsoftware.org/is/6/innosetup-6.2.2.exe" 
+          Invoke-WebRequest $innoUrl -OutFile "innosetup.exe"
+          Start-Process .\innosetup.exe "/VERYSILENT /SP- /NOCANCEL" -Wait
+
+      - name: Run Inno Setup to create installer
+        run: |
+          # By default, Inno Setup is installed to "C:\Program Files (x86)\Inno Setup 6".
+          # The iscc.exe compiler should be in PATH after install, or you can explicitly call it:
+          & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer.iss
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: FocusTimer-Installer
+          path: |
+            dist\
+            FocusTimerInstaller.exe
