@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v3 # Updated from v2 to v3
+        uses: actions/checkout@v3
 
       - name: Set up Python
         uses: actions/setup-python@v3
@@ -39,18 +39,20 @@ jobs:
 
       - name: Download/Install Inno Setup
         run: |
-          # Download and silently install Inno Setup
+          # Inno Setup isn't typically installed on the default runner,
+          # so we download/install silently:
           $innoUrl = "https://files.jrsoftware.org/is/6/innosetup-6.2.2.exe"
           Invoke-WebRequest $innoUrl -OutFile "innosetup.exe"
           Start-Process .\innosetup.exe "/VERYSILENT /SP- /NOCANCEL" -Wait
 
       - name: Run Inno Setup to create installer
         run: |
-          # Call ISCC.exe explicitly from the default install path
+          # By default, Inno Setup is installed to "C:\Program Files (x86)\Inno Setup 6".
+          # The iscc.exe compiler should be in PATH after install, or call it explicitly:
           & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" installer.iss
 
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3 # Updated to v3
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v4 # Updated to v4
         with:
           name: FocusTimer-Installer
           path: |
